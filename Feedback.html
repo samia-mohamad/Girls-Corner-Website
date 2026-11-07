@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Visitors Feedback - Girls Corner</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            background-color: #fff0f5;
+            font-family: Arial;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #d63384;
+        }
+
+        textarea {
+            width: 90%;
+            height: 100px;
+            padding: 10px;
+        }
+
+        button {
+            background-color: #d63384;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+        }
+
+        .comment {
+            background: white;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>💗 Visitors Feedback 💗</h1>
+
+    <h3>Share Your Opinion About Girls Corner</h3>
+
+    <textarea id="message"
+    placeholder="Write your comment here..."></textarea>
+
+    <br><br>
+
+    <button onclick="addComment()">Submit</button>
+
+    <h2>Visitors Comments</h2>
+
+    <div id="comments"></div>
+
+    <br>
+
+    <a href="index.html">Back to Home</a>
+
+    <script>
+        function addComment() {
+            let message = document.getElementById("message").value;
+
+            if (message.trim() === "") {
+                alert("Please write a comment!");
+                return;
+            }
+
+            let comments = JSON.parse(
+                localStorage.getItem("comments") || "[]"
+            );
+
+            comments.push(message);
+
+            localStorage.setItem(
+                "comments",
+                JSON.stringify(comments)
+            );
+
+            document.getElementById("message").value = "";
+            showComments();
+        }
+
+        function showComments() {
+            let comments = JSON.parse(
+                localStorage.getItem("comments") || "[]"
+            );
+
+            document.getElementById("comments").innerHTML = "";
+
+            comments.forEach(function(comment) {
+                let div = document.createElement("div");
+                div.className = "comment";
+                div.textContent = comment;
+                document.getElementById("comments").appendChild(div);
+            });
+        }
+
+        showComments();
+    </script>
+
+</body>
+</html>
